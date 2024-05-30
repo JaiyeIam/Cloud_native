@@ -1,0 +1,19 @@
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH != "main" && $CI_PIPELINE_SOURCE != "merge_request_event"      
+      when: never
+    - when: always
+stages:
+  - build
+  - deploy
+
+build_frontend:
+  stage: build
+  tags:
+    - remote
+    - shell
+    - lnde
+  before_script:
+    - cd frontend
+    - 
+    
