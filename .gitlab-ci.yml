@@ -33,7 +33,7 @@ build_products:
    - lnde
   before_script:
    - cd products
-   - export IMAGE-NAME=$CI_REGISTRY_IMAGE/microservice/products
+   - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/products
    - export IMAGE_TAG=1.8
   script:
    - docker login -u $CI_REGISTRY_USER -p $CI_REGSITRY_PASSWORD $CI_REGISTRY
