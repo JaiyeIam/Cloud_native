@@ -62,11 +62,3 @@ build_shopping_cart:
     changes:
       - "shopping-cart/**/*"
 
-mirror_repo:
-  stage: mirror
-  script:
-    - apt-get update && apt-get install -y git
-    - git clone --mirror https://oauth2:${GITHUB_TOKEN}@github.com/JaiyeIam/microsrv_mono.git
-    
-  only:
-    - main
