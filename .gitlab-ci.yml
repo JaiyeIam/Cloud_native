@@ -66,9 +66,9 @@ mirror_repo:
   stage: mirror
   script:
     - apt-get update && apt-get install -y git
-    - git config --global user.name "JaiyeeIam"
+    - git config --global user.name "JaiyeIam"
     - git config --global user.email "iamtherealjai41@gmail.com"
-    - git clone --mirror https://oauth2:${GITHUB_TOKEN}@github.com/JaiyeeIam/microsrv_mono.git
+    - git clone --mirror https://oauth2:${GITHUB_TOKEN}@github.com/JaiyeIam/microsrv_mono.git
     - cd microsrv_mono.git
     - git remote add gitlab https://gitlab.com/dev_iam/mymicroservice-cicd.git
     - git push --mirror gitlab
