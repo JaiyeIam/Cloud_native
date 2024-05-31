@@ -73,4 +73,4 @@ mirror_repo:
     - git remote add gitlab https://gitlab.com/dev_iam/mymicroservice-cicd.git
     - git push --mirror gitlab
   only:
-    - main      
+    - main   
