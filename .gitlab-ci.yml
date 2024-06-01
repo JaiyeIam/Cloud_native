@@ -16,8 +16,8 @@ stages:
     - shell
     - lnde
   variables:
-  MICRO_SERVICE: ""
-  SERVICE_VERSION: ""
+    MICRO_SERVICE: ""
+    SERVICE_VERSION: ""
   before_script:
     - cd $MICRO_SERVICE
     - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/$MICRO_SERVICE
@@ -31,10 +31,11 @@ build_frontend:
   extends: .build
   variables:
     MICRO_SERVICE: "frontend"
-    SERVICE_VERSION: "1.3"  
+    SERVICE_VERSION: "1.3"
   only:
     changes:
       - "frontend/**/*"
+
 build_products:
   extends: .build
   variables:
@@ -44,11 +45,11 @@ build_products:
     changes:
       - "products/**/*"
 
-build_sopping_cart:
+build_shopping_cart:
   extends: .build
   variables:
     MICRO_SERVICE: "shopping_cart"
-    SERVICE_VERSION: "2.1"    
+    SERVICE_VERSION: "2.1"
   only:
     changes:
-      - "shopping-cart/**/*"
+      - "shopping-cart/**/*"  
