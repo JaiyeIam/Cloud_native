@@ -19,4 +19,4 @@ jobs:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
           git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/dev_iam/mymicroservice-cicd.git
-          git push gitlab main
+          git pull gitlab main
