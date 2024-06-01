@@ -10,12 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4  # Automatically use the latest version
         with:
           fetch-depth: 0  # Perform a full clone
-
-      - name: Fetch latest changes from GitLab
-        run: git pull origin main
 
       - name: Push to GitLab
         env:
