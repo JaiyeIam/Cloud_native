@@ -62,5 +62,4 @@ build_shopping_cart:
     changes:
       - "shopping-cart/**/*"
       
-// reuse a code is better  
 
