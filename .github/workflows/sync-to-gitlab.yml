@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0  # Perform a full clone
 
       - name: Fetch latest changes from GitLab
-        run: git pull gitlab main
+        run: git pull origin main
 
       - name: Push to GitLab
         env:
