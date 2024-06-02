@@ -3,7 +3,8 @@ workflow:
     - if: '$CI_COMMIT_BRANCH != "main" && $CI_PIPELINE_SOURCE != "merge_request_event"'
       when: never
     - when: always
-
+varriables: 
+   DEPLOY_SERVER_HOST:176.58.115.136   APP_ENDPOINT: 176.58.115.136:$DC_APP_PORT
 stages:
   - build
   - deploy
@@ -53,3 +54,62 @@ build_shopping_cart:
   only:
     changes:
       - "shopping-cart/**/*"  
+
+.deploy:
+  stage: deploy
+  tags:
+    - remote
+    - shell
+    - lnde
+  variables:
+    MICRO_SERVICE: ""
+    SERVICE_VERSION: ""
+    APP_PORT: ""
+  before_script:
+    - chmod 400 $SSH_PRIVATE_KEY
+    - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/$MICRO_SERVICE
+    - export IMAGE_TAG=$SERVICE_VERSION
+  script:
+    - scp -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY ./docker-compose.yaml mthaniya@$DEPLOY_SERVER_HOST:/home/mthaniya/
+    - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY mthaniya@$DEPLOY_SERVER_HOST "
+       docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
+        export COMPOSE_PROJECT_NAME=$MICRO_SERVICE &&
+        export DC_IMAGE_NAME=$IMAGE_NAME &&
+        export DC_IMAGE_TAG=$IMAGE_TAG &&
+        export DC_APP_PORT=$DC_APP_PORT &&
+        docker create network micro_service &&
+        docker-compose down && 
+        docker-compose up -d"
+  
+eviroment:
+  url: $APP_ENDPOINT
+
+deploy_frontend:
+  extends: .deploy
+  variables:
+    MICRO_SERVICE: "frontend"
+    SERVICE_VERSION: "1.3"
+    APP_PORT: 3000
+  only:
+    changes:
+      - "frontend/**/*"
+
+deploy_products:
+extends: .deploy
+variables:
+  MICRO_SERVICE: "products""
+  SERVICE_VERSION: "1.8"
+  APP_PORT: 3001
+only:
+  changes:
+    - "products/**/*"
+    
+deploy_shopping-cart:
+extends: .deploy
+variables:
+  MICRO_SERVICE: "shopping-cart""
+  SERVICE_VERSION: "2.1""
+  APP_PORT: 3002
+only:
+  changes:
+    - "sopping-cart/**/*"
