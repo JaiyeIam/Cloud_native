@@ -84,9 +84,6 @@ build_shopping_cart:
         docker-compose down && 
         docker-compose up -d"
 
-environment:
-  url: $APP_ENDPOINT
-
 deploy_frontend:
   extends: .deploy
   variables:
@@ -116,3 +113,7 @@ deploy_shopping_cart:
   only:
     changes:
       - "shopping-cart/**/*"
+
+environment:
+  name: deployment
+  url: $APP_ENDPOINT
