@@ -10,5 +10,4 @@ services:
 
 networks:
   micro_service:
-    external: 
-    name: micro_service
+    external: true
