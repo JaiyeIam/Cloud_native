@@ -52,7 +52,7 @@ build_products:
 build_shopping_cart:
   extends: .build
   variables:
-    MICRO_SERVICE: "shopping_cart"
+    MICRO_SERVICE: "shopping-cart"
     SERVICE_VERSION: "2.1"
   only:
     changes:
